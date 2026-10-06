@@ -113,9 +113,10 @@
 
     /* Event details */
     #details { min-height: 70vh; }
-    #details h2 { max-width: 380px; margin-bottom: 0; }
+    #details h2 { max-width: 380px; margin-bottom: 30px; }
     #details .big { font-size: 26px; }
     #details strong { font-weight: 500; }
+    .map { width: 100%; aspect-ratio: 4 / 3; border: 0; border-radius: 12px; display: block; }
 
     /* Say yes */
     #yes { grid-template-columns: 1fr; min-height: 80vh; text-align: center; }
@@ -183,8 +184,12 @@
 
   <!-- EVENT DETAILS -->
   <section id="details">
-    <div class="reveal">
-      <h2>Your journey begins here</h2>
+    <div>
+      <h2 class="reveal">Your journey begins here</h2>
+      <iframe class="map reveal"
+        src="https://maps.google.com/maps?q=Kamala+Beach,+Phuket&z=15&output=embed"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Map of the starting point"></iframe>
     </div>
     <div class="stack reveal">
       <p class="big">Be ready to leave at <strong>4:30 PM</strong></p>
