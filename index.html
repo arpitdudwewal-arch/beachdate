@@ -89,7 +89,7 @@
     }
 
     /* Home */
-    #home .photo { aspect-ratio: 400 / 440; }
+    #home .photo { aspect-ratio: 3 / 4; max-height: 82vh; }
     .lead { max-width: 340px; margin-bottom: 30px; }
     .btn {
       display: inline-flex; align-items: center; justify-content: space-between;
@@ -111,18 +111,13 @@
 
     /* Preps */
     #preps { grid-template-columns: 1fr 1fr; }
-    #preps .photo { aspect-ratio: 412 / 303; }
+    #preps .photo { aspect-ratio: 3 / 4; max-height: 82vh; }
 
     /* Event details */
-    #details { align-items: start; }
-    #details .text { align-self: center; }
-    .map {
-      width: 100%; aspect-ratio: 390 / 280;
-      border: 0; border-radius: 12px;
-      display: block;
-    }
-    #details .head { grid-column: 1 / -1; margin-bottom: -20px; }
-    #details .head h2 { max-width: 360px; margin-bottom: 0; }
+    #details { min-height: 70vh; }
+    #details h2 { max-width: 380px; margin-bottom: 0; }
+    #details .big { font-size: 26px; }
+    #details strong { font-weight: 500; }
 
     /* Guide list */
     .eyebrow {
@@ -167,7 +162,6 @@
     @media (max-width: 760px) {
       section, #preps { grid-template-columns: 1fr; min-height: auto; padding-top: 80px; }
       #home { padding-top: 90px; }
-      #details .head { margin-bottom: 0; }
       section::before { width: 260px; height: 300px; }
     }
   </style>
@@ -212,15 +206,11 @@
 
   <!-- EVENT DETAILS -->
   <section id="details">
-    <div class="head reveal">
+    <div class="reveal">
       <h2>Your journey begins here</h2>
     </div>
-    <iframe class="map reveal"
-      src="https://maps.google.com/maps?q=Kamala+Beach,+Phuket&z=15&output=embed"
-      loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-      title="Map of the starting point"></iframe>
     <div class="text stack reveal">
-      <p>Be ready to leave at 4:30PM</p>
+      <p class="big">Be ready to leave at <strong>4:30 PM</strong></p>
       <p>Please note : You cannot ask a lot of questions , just be patient and enjoy!</p>
     </div>
   </section>
