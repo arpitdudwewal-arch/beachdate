@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Ultimate Date</title>
+  <meta name="description" content="You have only one job — agree to the date with Devanshi.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fcf6f1;
+      --ink: #3d1a24;
+      --muted: #8a7a7d;
+      --blush: #f3c6b8;
+      --lilac: #f1d4f7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+      overflow-x: hidden;
+    }
+
+    /* ---------- Nav ---------- */
+    nav {
+      position: fixed; inset: 0 0 auto 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px clamp(16px, 4vw, 40px);
+      background: rgba(252, 246, 241, 0.85);
+      backdrop-filter: blur(8px);
+    }
+    .logo {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: linear-gradient(#cfe8f7 0 55%, #7cb342 55% 100%);
+      box-shadow: inset 0 0 0 2px #fff;
+    }
+    nav ul { list-style: none; display: flex; gap: clamp(12px, 2.5vw, 22px); }
+    nav a {
+      color: var(--muted); text-decoration: none; font-size: 15px;
+      transition: color .2s;
+    }
+    nav a:hover, nav a.active { color: var(--ink); }
+
+    /* ---------- Sections ---------- */
+    section {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: clamp(24px, 5vw, 70px);
+      padding: 90px clamp(16px, 5vw, 60px) 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    /* soft blush glow behind the text, like the Canva design */
+    section::before {
+      content: "";
+      position: absolute; z-index: -1;
+      top: 0; left: 5%;
+      width: 360px; height: 420px;
+      background: radial-gradient(ellipse at center, rgba(243,198,184,.75), rgba(243,198,184,0) 70%);
+      filter: blur(30px);
+      transform: rotate(-20deg);
+      pointer-events: none;
+    }
+
+    h1, h2 {
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+    }
+    h1 { font-size: clamp(52px, 8vw, 76px); margin-bottom: 26px; }
+    h2 { font-size: clamp(38px, 5.5vw, 46px); margin-bottom: 30px; }
+    p { font-size: 17px; }
+    .stack p + p { margin-top: 18px; }
+
+    .photo {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Home */
+    #home .photo { aspect-ratio: 400 / 440; }
+    .lead { max-width: 340px; margin-bottom: 30px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: space-between;
+      gap: 40px;
+      padding: 6px 6px 6px 14px;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      color: var(--ink); text-decoration: none; font-size: 17px;
+      background: transparent;
+      transition: background .25s;
+    }
+    .btn .dot {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--lilac);
+      transition: transform .3s;
+    }
+    .btn:hover { background: #fff; }
+    .btn:hover .dot { transform: scale(1.25); }
+
+    /* Preps */
+    #preps { grid-template-columns: 1fr 1fr; }
+    #preps .photo { aspect-ratio: 412 / 303; }
+
+    /* Event details */
+    #details { align-items: start; }
+    #details .text { align-self: center; }
+    .map {
+      width: 100%; aspect-ratio: 390 / 280;
+      border: 0; border-radius: 12px;
+      display: block;
+    }
+    #details .head { grid-column: 1 / -1; margin-bottom: -20px; }
+    #details .head h2 { max-width: 360px; margin-bottom: 0; }
+
+    footer {
+      text-align: center; padding: 30px 16px 40px;
+      color: var(--muted); font-size: 14px;
+    }
+
+    /* fade-in on scroll */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+
+    @media (max-width: 760px) {
+      section, #preps { grid-template-columns: 1fr; min-height: auto; padding-top: 80px; }
+      #home { padding-top: 90px; }
+      #details .head { margin-bottom: 0; }
+      section::before { width: 260px; height: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#home" aria-label="Home"><div class="logo"></div></a>
+    <ul>
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#preps">The Preps</a></li>
+      <li><a href="#details">Event Details</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home">
+    <div class="reveal">
+      <h1>The Ultimate Date</h1>
+      <p class="lead">You have only one job!<br>
+        To agree to the date with Devanshi and accompany her to the destination she is taking you</p>
+      <a href="#preps" class="btn">Are You Ready? <span class="dot"></span></a>
+    </div>
+    <img class="photo reveal" src="images/us.jpg" alt="The two of us">
+  </section>
+
+  <!-- THE PREPS -->
+  <section id="preps">
+    <div class="reveal">
+      <h2>Things to Keep in Mind</h2>
+      <div class="stack">
+        <p>Please make sure you’re wearing your cutest outfit<br>
+           Don’t forget to buy some snacks and drinks before hand</p>
+        <p>Please put sunscreen and don’t , in any manner , annoy Devanshi before leaving</p>
+      </div>
+    </div>
+    <img class="photo reveal" src="images/picnic.jpg" alt="A picnic blanket on the beach">
+  </section>
+
+  <!-- EVENT DETAILS -->
+  <section id="details">
+    <div class="head reveal">
+      <h2>Your journey begins here</h2>
+    </div>
+    <iframe class="map reveal"
+      src="https://maps.google.com/maps?q=Kamala+Beach,+Phuket&z=15&output=embed"
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      title="Map of the starting point"></iframe>
+    <div class="text stack reveal">
+      <p>Be ready to leave at 4:30PM</p>
+      <p>Please note : You cannot ask a lot of questions , just be patient and enjoy!</p>
+    </div>
+  </section>
+
+  <footer>Made with love by Devanshi ♡</footer>
+
+  <script>
+    // Fade sections in as they scroll into view
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Highlight the current section in the nav
+    const links = document.querySelectorAll('nav ul a');
+    const sections = [...document.querySelectorAll('section')];
+    addEventListener('scroll', () => {
+      let current = sections[0].id;
+      sections.forEach(s => { if (scrollY >= s.offsetTop - 200) current = s.id; });
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+    }, { passive: true });
+  </script>
+</body>
+</html>
