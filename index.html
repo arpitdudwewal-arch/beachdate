@@ -14,7 +14,6 @@
       --bg: #fcf6f1;
       --ink: #3d1a24;
       --muted: #8a7a7d;
-      --blush: #f3c6b8;
       --lilac: #f1d4f7;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,15 +29,10 @@
     /* ---------- Nav ---------- */
     nav {
       position: fixed; inset: 0 0 auto 0; z-index: 10;
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center; justify-content: flex-end;
       padding: 10px clamp(16px, 4vw, 40px);
       background: rgba(252, 246, 241, 0.85);
       backdrop-filter: blur(8px);
-    }
-    .logo {
-      width: 26px; height: 26px; border-radius: 50%;
-      background: linear-gradient(#cfe8f7 0 55%, #7cb342 55% 100%);
-      box-shadow: inset 0 0 0 2px #fff;
     }
     nav ul { list-style: none; display: flex; gap: clamp(12px, 2.5vw, 22px); }
     nav a {
@@ -59,7 +53,6 @@
       max-width: 1100px;
       margin: 0 auto;
     }
-    /* soft blush glow behind the text, like the Canva design */
     section::before {
       content: "";
       position: absolute; z-index: -1;
@@ -71,11 +64,7 @@
       pointer-events: none;
     }
 
-    h1, h2 {
-      font-weight: 400;
-      letter-spacing: -0.03em;
-      line-height: 1.02;
-    }
+    h1, h2 { font-weight: 400; letter-spacing: -0.03em; line-height: 1.02; }
     h1 { font-size: clamp(52px, 8vw, 76px); margin-bottom: 26px; }
     h2 { font-size: clamp(38px, 5.5vw, 46px); margin-bottom: 30px; }
     p { font-size: 17px; }
@@ -83,13 +72,13 @@
 
     .photo {
       width: 100%;
+      aspect-ratio: 3 / 4; max-height: 82vh;
       border-radius: 12px;
       object-fit: cover;
       display: block;
     }
 
     /* Home */
-    #home .photo { aspect-ratio: 3 / 4; max-height: 82vh; }
     .lead { max-width: 340px; margin-bottom: 30px; }
     .btn {
       display: inline-flex; align-items: center; justify-content: space-between;
@@ -109,16 +98,6 @@
     .btn:hover { background: #fff; }
     .btn:hover .dot { transform: scale(1.25); }
 
-    /* Preps */
-    #preps { grid-template-columns: 1fr 1fr; }
-    #preps .photo { aspect-ratio: 3 / 4; max-height: 82vh; }
-
-    /* Event details */
-    #details { min-height: 70vh; }
-    #details h2 { max-width: 380px; margin-bottom: 0; }
-    #details .big { font-size: 26px; }
-    #details strong { font-weight: 500; }
-
     /* Guide list */
     .eyebrow {
       font-size: 14px; text-transform: uppercase; letter-spacing: .12em;
@@ -131,6 +110,12 @@
       border-bottom: 1px solid rgba(61,26,36,.15);
     }
     .guide span { font-size: 13px; color: var(--muted); letter-spacing: .05em; min-width: 22px; }
+
+    /* Event details */
+    #details { min-height: 70vh; }
+    #details h2 { max-width: 380px; margin-bottom: 0; }
+    #details .big { font-size: 26px; }
+    #details strong { font-weight: 500; }
 
     /* Say yes */
     #yes { grid-template-columns: 1fr; min-height: 80vh; text-align: center; }
@@ -146,22 +131,15 @@
       position: fixed; bottom: -40px; pointer-events: none; z-index: 20;
       animation: float 3.5s ease-in forwards;
     }
-    @keyframes float {
-      to { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
-    }
+    @keyframes float { to { transform: translateY(-110vh) rotate(25deg); opacity: 0; } }
 
-    footer {
-      text-align: center; padding: 30px 16px 40px;
-      color: var(--muted); font-size: 14px;
-    }
+    footer { text-align: center; padding: 30px 16px 40px; color: var(--muted); font-size: 14px; }
 
-    /* fade-in on scroll */
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
     .reveal.show { opacity: 1; transform: none; }
 
     @media (max-width: 760px) {
-      section, #preps { grid-template-columns: 1fr; min-height: auto; padding-top: 80px; }
-      #home { padding-top: 90px; }
+      section { grid-template-columns: 1fr; min-height: auto; padding-top: 80px; }
       section::before { width: 260px; height: 300px; }
     }
   </style>
@@ -169,7 +147,6 @@
 <body>
 
   <nav>
-    <a href="#home" aria-label="Home"><div class="logo"></div></a>
     <ul>
       <li><a href="#home" class="active">Home</a></li>
       <li><a href="#preps">The Preps</a></li>
@@ -185,7 +162,7 @@
         To agree to the date with Devanshi and accompany her to the destination she is taking you</p>
       <a href="#preps" class="btn">Are You Ready? <span class="dot"></span></a>
     </div>
-    <img class="photo reveal" src="images/us.jpg" alt="The two of us">
+    <img class="photo reveal" src="us.jpg" alt="The two of us">
   </section>
 
   <!-- THE PREPS -->
@@ -201,7 +178,7 @@
         <li><span>05</span>The journey begins at 4:30 PM</li>
       </ol>
     </div>
-    <img class="photo reveal" src="images/picnic.jpg" alt="A picnic blanket on the beach at sunset">
+    <img class="photo reveal" src="picnic.jpg" alt="A picnic blanket on the beach">
   </section>
 
   <!-- EVENT DETAILS -->
@@ -209,7 +186,7 @@
     <div class="reveal">
       <h2>Your journey begins here</h2>
     </div>
-    <div class="text stack reveal">
+    <div class="stack reveal">
       <p class="big">Be ready to leave at <strong>4:30 PM</strong></p>
       <p>Please note : You cannot ask a lot of questions , just be patient and enjoy!</p>
     </div>
@@ -230,13 +207,11 @@
   <footer>Made with love by Devanshi ♡</footer>
 
   <script>
-    // Fade sections in as they scroll into view
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
     }, { threshold: 0.15 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    // "No" runs away — there is only one correct answer
     const noBtn = document.getElementById('noBtn');
     const lines = ['Are you sure?', 'Try again', 'Nope', 'Not an option', 'Wrong button'];
     let tries = 0;
@@ -249,7 +224,6 @@
     noBtn.addEventListener('mouseenter', dodge);
     noBtn.addEventListener('click', e => { e.preventDefault(); dodge(); });
 
-    // "Yes" celebrates
     document.getElementById('yesBtn').addEventListener('click', () => {
       document.getElementById('yesTitle').textContent = 'Yay! See you at 4:30 ♡';
       document.getElementById('yesText').textContent = 'Cute outfit on, snacks in hand, no questions asked. Devanshi has the rest.';
@@ -267,7 +241,6 @@
       }
     });
 
-    // Highlight the current section in the nav
     const links = document.querySelectorAll('nav ul a');
     const sections = [...document.querySelectorAll('section')];
     addEventListener('scroll', () => {
