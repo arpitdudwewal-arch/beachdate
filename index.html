@@ -124,6 +124,37 @@
     #details .head { grid-column: 1 / -1; margin-bottom: -20px; }
     #details .head h2 { max-width: 360px; margin-bottom: 0; }
 
+    /* Guide list */
+    .eyebrow {
+      font-size: 14px; text-transform: uppercase; letter-spacing: .12em;
+      color: var(--muted); margin-bottom: 14px;
+    }
+    .guide { list-style: none; border-top: 1px solid rgba(61,26,36,.15); }
+    .guide li {
+      display: flex; align-items: baseline; gap: 18px;
+      padding: 14px 0; font-size: 18px;
+      border-bottom: 1px solid rgba(61,26,36,.15);
+    }
+    .guide span { font-size: 13px; color: var(--muted); letter-spacing: .05em; min-width: 22px; }
+
+    /* Say yes */
+    #yes { grid-template-columns: 1fr; min-height: 80vh; text-align: center; }
+    #yes::before { left: 50%; top: 20%; transform: translateX(-50%) rotate(-20deg); width: 520px; }
+    .yes-box { max-width: 520px; margin: 0 auto; }
+    .yes-box p { margin-bottom: 32px; }
+    .choices { display: flex; gap: 16px; justify-content: center; align-items: center; min-height: 60px; }
+    button.btn { font: inherit; cursor: pointer; }
+    #noBtn { padding: 6px 22px; transition: transform .25s ease; }
+    .btn.solid { background: var(--ink); color: var(--bg); }
+    .btn.solid:hover { background: #5a2735; }
+    .heart {
+      position: fixed; bottom: -40px; pointer-events: none; z-index: 20;
+      animation: float 3.5s ease-in forwards;
+    }
+    @keyframes float {
+      to { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
+    }
+
     footer {
       text-align: center; padding: 30px 16px 40px;
       color: var(--muted); font-size: 14px;
@@ -166,14 +197,17 @@
   <!-- THE PREPS -->
   <section id="preps">
     <div class="reveal">
-      <h2>Things to Keep in Mind</h2>
-      <div class="stack">
-        <p>Please make sure you’re wearing your cutest outfit<br>
-           Don’t forget to buy some snacks and drinks before hand</p>
-        <p>Please put sunscreen and don’t , in any manner , annoy Devanshi before leaving</p>
-      </div>
+      <p class="eyebrow">It’s all planned. You just show up.</p>
+      <h2>Your guide to the ultimate sunset beach picnic</h2>
+      <ol class="guide">
+        <li><span>01</span>Wear a cute outfit</li>
+        <li><span>02</span>Buy some snacks and drinks</li>
+        <li><span>03</span>Don’t ask a lot of questions</li>
+        <li><span>04</span>Follow Devanshi and don’t annoy her</li>
+        <li><span>05</span>The journey begins at 4:30 PM</li>
+      </ol>
     </div>
-    <img class="photo reveal" src="images/picnic.jpg" alt="A picnic blanket on the beach">
+    <img class="photo reveal" src="images/picnic.jpg" alt="A picnic blanket on the beach at sunset">
   </section>
 
   <!-- EVENT DETAILS -->
@@ -191,6 +225,18 @@
     </div>
   </section>
 
+  <!-- SAY YES -->
+  <section id="yes">
+    <div class="yes-box reveal">
+      <h2 id="yesTitle">So… are you in?</h2>
+      <p id="yesText">Everything is planned. The only thing missing is your answer.</p>
+      <div class="choices" id="choices">
+        <button class="btn solid" id="yesBtn">Yes, I’m ready! <span class="dot"></span></button>
+        <button class="btn" id="noBtn">No</button>
+      </div>
+    </div>
+  </section>
+
   <footer>Made with love by Devanshi ♡</footer>
 
   <script>
@@ -199,6 +245,37 @@
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
     }, { threshold: 0.15 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // "No" runs away — there is only one correct answer
+    const noBtn = document.getElementById('noBtn');
+    const lines = ['Are you sure?', 'Try again', 'Nope', 'Not an option', 'Wrong button'];
+    let tries = 0;
+    function dodge() {
+      const x = (Math.random() - 0.5) * 260;
+      const y = (Math.random() - 0.5) * 140;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+      noBtn.textContent = lines[tries++ % lines.length];
+    }
+    noBtn.addEventListener('mouseenter', dodge);
+    noBtn.addEventListener('click', e => { e.preventDefault(); dodge(); });
+
+    // "Yes" celebrates
+    document.getElementById('yesBtn').addEventListener('click', () => {
+      document.getElementById('yesTitle').textContent = 'Yay! See you at 4:30 ♡';
+      document.getElementById('yesText').textContent = 'Cute outfit on, snacks in hand, no questions asked. Devanshi has the rest.';
+      document.getElementById('choices').style.display = 'none';
+      for (let i = 0; i < 40; i++) {
+        const h = document.createElement('div');
+        h.className = 'heart';
+        h.textContent = ['♡', '🌅', '🌊', '🧺'][i % 4];
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.fontSize = 18 + Math.random() * 22 + 'px';
+        h.style.color = '#c9566f';
+        h.style.animationDelay = Math.random() * 1.2 + 's';
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 5000);
+      }
+    });
 
     // Highlight the current section in the nav
     const links = document.querySelectorAll('nav ul a');
